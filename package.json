@@ -1,0 +1,25 @@
+{
+  "name": "amalgamatic",
+  "description": "Search all the things! Pluggable metasearch. Uses APIs when it can, scrapes otherwise, write your own plugins for things that don't already have them.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ucsf-ckm/amalgamatic.git"
+  },
+  "version": "1.0.0",
+  "dependencies": {
+    "async": "^0.9.0",
+    "cheerio": "^0.17.0"
+  },
+  "scripts": {
+    "test": "lab"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.5",
+    "lab": "^4.3.0",
+    "nock": "^0.47.0",
+    "precommit-hook": "^1.0.7"
+  }
+}
