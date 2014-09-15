@@ -11,7 +11,7 @@
     "cheerio": "^0.17.0"
   },
   "scripts": {
-    "test": "lab"
+    "test": "node_modules/lab/bin/lab -t 100"
   },
   "engines": {
     "node": "0.10.x"
