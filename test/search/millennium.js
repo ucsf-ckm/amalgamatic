@@ -1,6 +1,6 @@
 /*jshint expr: true*/
 
-var millennium = require('../../../lib/library/search/millennium.js');
+var millennium = require('../../lib/search/millennium.js');
 
 var nock = require('nock');
 

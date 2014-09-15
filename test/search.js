@@ -1,6 +1,6 @@
 /*jshint expr: true*/
 
-var search = require('../../lib/library/search.js');
+var search = require('../index.js');
 
 var nock = require('nock');
 

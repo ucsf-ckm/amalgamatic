@@ -1,6 +1,6 @@
 /*jshint expr: true*/
 
-var sfx = require('../../../lib/library/search/sfx.js');
+var sfx = require('../../lib/search/sfx.js');
 
 var nock = require('nock');
 

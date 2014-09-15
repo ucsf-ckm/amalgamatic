@@ -1,5 +1,5 @@
 var async = require('async');
-var sfx = require('./search/sfx.js');
+var sfx = require('./lib/search/sfx.js');
 
 var collections = {
     sfx: sfx
