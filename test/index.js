@@ -1,8 +1,9 @@
 /*jshint expr: true*/
 
 var amalgamatic = require('../index.js');
-amalgamatic.add('sfx');
+var sfx = require('amalgamatic-sfx');
 
+amalgamatic.add('sfx', sfx);
 
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
@@ -11,27 +12,17 @@ var expect = Lab.expect;
 var describe = lab.experiment;
 var it = lab.test;
 
-describe('amalgamatic', function () {
-
-	it('should have a search property', function (done) {
-		expect(typeof amalgamatic.search).to.equal('function');
-		done();
-	});
-});
-
-
 var nock = require('nock');
 
 var EventEmitter = require('events').EventEmitter;
 var emitter = new EventEmitter();
 
-var res = {
-	json: function(value) {
-		emitter.emit('end', value);
-	}
-};
-
-describe('search', function () {
+describe('exports', function () {
+	var res = {
+		json: function(value) {
+			emitter.emit('end', value);
+		}
+	};
 
 	var searchHelper = function (q, c, callback) {
 		var req = {
@@ -45,6 +36,11 @@ describe('search', function () {
 
 		amalgamatic.search(req, res);
 	};
+
+	it('should have a search property', function (done) {
+		expect(typeof amalgamatic.search).to.equal('function');
+		done();
+	});
 
 	it('returns only specified collection', function (done) {
 		nock('http://ucelinks.cdlib.org:8888')
