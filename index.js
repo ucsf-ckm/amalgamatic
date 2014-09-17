@@ -33,6 +33,6 @@ exports.search = function (req, res) {
   async.each(requestedCollections, iterator, callback);
 };
 
-exports.add = function (collection) {
-  collections[collection] = require(__dirname + '/lib/' + collection);
+exports.add = function (name, collector) {
+  collections[name] = collector;
 };
