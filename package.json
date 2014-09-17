@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "jshint": "^2.5.5",
-    "lab": "^4.3.0",
+    "lab": "^4.4.4",
     "nock": "^0.47.0",
     "precommit-hook": "^1.0.7"
   }
