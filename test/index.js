@@ -13,28 +13,25 @@ var describe = lab.experiment;
 var it = lab.test;
 
 var nock = require('nock');
+nock.disableNetConnect();
 
 var EventEmitter = require('events').EventEmitter;
 var emitter = new EventEmitter();
 
 describe('exports', function () {
-	var res = {
-		json: function(value) {
-			emitter.emit('end', value);
-		}
+	var emitEnd = function (value) {
+		emitter.emit('end', value);
 	};
 
 	var searchHelper = function (q, c, callback) {
-		var req = {
-			query: {
-				q: q,
-				c: c
-			}
+		var query = {
+			q: q,
+			c: c
 		};
 
 		emitter.once('end', callback);
 
-		amalgamatic.search(req, res);
+		amalgamatic.search(query, emitEnd);
 	};
 
 	it('should have a search property', function (done) {
@@ -75,6 +72,10 @@ describe('exports', function () {
 	});
 
 	it('returns all collections if no collection specified', function (done) {
+		nock('http://ucelinks.cdlib.org:8888')
+			.get('/sfx_ucsf/az?param_textSearchType_value=startsWith&param_pattern_value=medicine')
+			.reply('200', '<a class="Results" href="#">Medicine</a><a class="Results" href="#">Medicine</a>');
+
 		searchHelper('medicine', null, function (results) {
 			expect(results.sfx.data).to.be.ok;
 			done();
