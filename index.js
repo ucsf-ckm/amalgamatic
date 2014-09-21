@@ -2,21 +2,21 @@ var async = require('async');
 
 var collections = {};
 
-exports.search = function (req, res) {
+exports.search = function (query, callback) {
   'use strict';
 
   var requestedCollections;
-  if (! req.query.c || ! req.query.c instanceof Array) {
+  if (! query.c || ! query.c instanceof Array) {
     requestedCollections = Object.keys(collections);
   } else {
-    requestedCollections = req.query.c;
+    requestedCollections = query.c;
   }
 
   var results = {};
 
   var iterator = function (c, done) {
     if (c in collections) {
-      collections[c].search(req.query.q, function (value) {
+      collections[c].search(query.q, function (value) {
         results[c] = {data: value.data};
         done();
       });
@@ -26,11 +26,11 @@ exports.search = function (req, res) {
     }
   };
 
-  var callback = function () {
-    res.json(results);
+  var wrappedCallback = function () {
+    callback(results);
   };
 
-  async.each(requestedCollections, iterator, callback);
+  async.each(requestedCollections, iterator, wrappedCallback);
 };
 
 exports.add = function (name, collector) {
