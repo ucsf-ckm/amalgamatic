@@ -77,5 +77,13 @@ describe('exports', function () {
 			done();
 		});
 	});
+
+	it('returns errors returned by the plugin', function (done) {
+		searchHelper('error', ['plugin'], function (results) {
+			expect(results.plugin.data).to.be.undefined;
+			expect(results.plugin.error).to.equal('There was an error! Oh noes!');
+			done();
+		});
+	});
 });
 
