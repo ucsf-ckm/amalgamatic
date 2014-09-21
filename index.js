@@ -17,7 +17,7 @@ exports.search = function (query, callback) {
   var iterator = function (c, done) {
     if (c in collections) {
       collections[c].search(query.q, function (value) {
-        results[c] = {data: value.data};
+        results[c] = value;
         done();
       });
     } else {
