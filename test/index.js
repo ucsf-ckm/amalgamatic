@@ -1,9 +1,20 @@
 /*jshint expr: true*/
 
 var amalgamatic = require('../index.js');
-var sfx = require('amalgamatic-sfx');
+var pluginTestDouble = {
+	search: function (query, callback) {
+		if (query === 'error') {
+			callback({error: 'There was an error! Oh noes!'});
+		} else {
+			callback({data: [
+				{name: 'Result 1', url: 'http://example.com/1'},
+				{name: 'Result 2', url: 'http://example.com/2'}
+			]});
+			}
+	}
+};
 
-amalgamatic.add('sfx', sfx);
+amalgamatic.add('plugin', pluginTestDouble);
 
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
@@ -11,9 +22,6 @@ var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
 var describe = lab.experiment;
 var it = lab.test;
-
-var nock = require('nock');
-nock.disableNetConnect();
 
 var EventEmitter = require('events').EventEmitter;
 var emitter = new EventEmitter();
@@ -40,13 +48,9 @@ describe('exports', function () {
 	});
 
 	it('returns only specified collection', function (done) {
-		nock('http://ucelinks.cdlib.org:8888')
-			.get('/sfx_ucsf/az?param_textSearchType_value=startsWith&param_pattern_value=medicine')
-			.reply('200', '<a class="Results" href="#">Medicine</a><a class="Results" href="#">Medicine</a>');
-
-		searchHelper('medicine', ['sfx'], function (results) {
-			expect(results.sfx.data.length > 0).to.be.true;
-			expect(results.sfx.error).to.be.undefined;
+		searchHelper('medicine', ['plugin'], function (results) {
+			expect(results.plugin.data.length > 0).to.be.true;
+			expect(results.plugin.error).to.be.undefined;
 			done();
 		});
 	});
@@ -60,24 +64,16 @@ describe('exports', function () {
 	});
 
 	it('returns multiple collections if specified', function (done) {
-		nock('http://ucelinks.cdlib.org:8888')
-			.get('/sfx_ucsf/az?param_textSearchType_value=startsWith&param_pattern_value=medicine')
-			.reply('200', '<a class="Results" href="#">Medicine</a><a class="Results" href="#">Medicine</a>');
-
-		searchHelper('medicine', ['sfx', 'fhqwhgads'], function (results) {
-			expect(results.sfx.data).to.be.ok;
+		searchHelper('medicine', ['plugin', 'fhqwhgads'], function (results) {
+			expect(results.plugin.data).to.be.ok;
 			expect(results.fhqwhgads.error).to.be.ok;
 			done();
 		});
 	});
 
 	it('returns all collections if no collection specified', function (done) {
-		nock('http://ucelinks.cdlib.org:8888')
-			.get('/sfx_ucsf/az?param_textSearchType_value=startsWith&param_pattern_value=medicine')
-			.reply('200', '<a class="Results" href="#">Medicine</a><a class="Results" href="#">Medicine</a>');
-
 		searchHelper('medicine', null, function (results) {
-			expect(results.sfx.data).to.be.ok;
+			expect(results.plugin.data).to.be.ok;
 			done();
 		});
 	});
