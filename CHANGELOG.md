@@ -1,3 +1,40 @@
+# 2014-09-22
+34 commits against 25 issues, over 6 days [`bc295f6`](https://github.com/ucsf-ckm/amalgamatic/commit/bc295f6)⎆[`e966def`](https://github.com/ucsf-ckm/amalgamatic/commit/e966def)
+
+## [**3.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=3&state=closed)
+- [**#21**](https://github.com/ucsf-ckm/amalgamatic/issues/21) search() needs to have two types of callbacks?
+- [**#30**](https://github.com/ucsf-ckm/amalgamatic/issues/30) more descriptive names for properties
+- [**#26**](https://github.com/ucsf-ckm/amalgamatic/issues/26) search() should honor error object from plugin
+- [**#24**](https://github.com/ucsf-ckm/amalgamatic/issues/24) use test double instead of existing plugin for tests
+- [**#22**](https://github.com/ucsf-ckm/amalgamatic/issues/22) search() first parameter should be a POJsO
+- [**#20**](https://github.com/ucsf-ckm/amalgamatic/issues/20) Change API so search() takes a callback rather than a response object
+- [**#15**](https://github.com/ucsf-ckm/amalgamatic/issues/15) Basic usage in README
+- [**#4**](https://github.com/ucsf-ckm/amalgamatic/issues/4) Limit number of results returned
+- [**#3**](https://github.com/ucsf-ckm/amalgamatic/issues/3) Document API
+
+## [**2.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=2&state=closed)
+- [**#12**](https://github.com/ucsf-ckm/amalgamatic/issues/12) Move libguides collector to its own npm module
+- [**#11**](https://github.com/ucsf-ckm/amalgamatic/issues/11) Move millennium collector to its own npm module
+- [**#8**](https://github.com/ucsf-ckm/amalgamatic/issues/8) add() should load collectors from npm modules
+- [**#6**](https://github.com/ucsf-ckm/amalgamatic/issues/6) Add libguides connector
+- [**#2**](https://github.com/ucsf-ckm/amalgamatic/issues/2) Add configurability
+
+## [**1.1.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=1&state=closed)
+- [**#1**](https://github.com/ucsf-ckm/amalgamatic/issues/1) Millennium should be a default collection
+
+
+## Issues
+- [**#33**](https://github.com/ucsf-ckm/amalgamatic/issues/33) add pluginCallback option for #21
+- [**#32**](https://github.com/ucsf-ckm/amalgamatic/issues/32) limit number of results returned if maxResults specified, for #4
+- [**#31**](https://github.com/ucsf-ckm/amalgamatic/issues/31) more descriptive properties for #30
+- [**#28**](https://github.com/ucsf-ckm/amalgamatic/issues/28) document API in README for now at least, for #3
+- [**#27**](https://github.com/ucsf-ckm/amalgamatic/issues/27) handle errors for #26
+- [**#25**](https://github.com/ucsf-ckm/amalgamatic/issues/25) use test double rather than nock + amalgamatic-sfx, fixes #24
+- [**#23**](https://github.com/ucsf-ckm/amalgamatic/issues/23) update method signature for #20 and #22
+- [**#13**](https://github.com/ucsf-ckm/amalgamatic/issues/13) add() should load collectors from npm modules, closes #8
+- [**#10**](https://github.com/ucsf-ckm/amalgamatic/issues/10) Add libguides connector for #6
+- [**#7**](https://github.com/ucsf-ckm/amalgamatic/issues/7) allow programmatic adding of collectors for #2
+
 
 ## [**2.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=2&state=closed)
 - [**#12**](https://github.com/ucsf-ckm/amalgamatic/issues/12) Move libguides collector to its own npm module
