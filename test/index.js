@@ -1,6 +1,7 @@
 /*jshint expr: true*/
 
 var amalgamatic = require('../index.js');
+
 var pluginTestDouble = {
 	search: function (query, callback) {
 		if (query === 'error') {
@@ -10,7 +11,7 @@ var pluginTestDouble = {
 				{name: 'Result 1', url: 'http://example.com/1'},
 				{name: 'Result 2', url: 'http://example.com/2'}
 			]});
-			}
+		}
 	}
 };
 
@@ -23,32 +24,14 @@ var expect = Lab.expect;
 var describe = lab.experiment;
 var it = lab.test;
 
-var EventEmitter = require('events').EventEmitter;
-var emitter = new EventEmitter();
-
 describe('exports', function () {
-	var emitEnd = function (value) {
-		emitter.emit('end', value);
-	};
-
-	var searchHelper = function (searchTerm, collections, callback) {
-		var query = {
-			searchTerm: searchTerm,
-			collections: collections
-		};
-
-		emitter.once('end', callback);
-
-		amalgamatic.search(query, emitEnd);
-	};
-
 	it('should have a search property', function (done) {
 		expect(typeof amalgamatic.search).to.equal('function');
 		done();
 	});
 
 	it('returns only specified collection', function (done) {
-		searchHelper('medicine', ['plugin'], function (results) {
+		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin']}, function (results) {
 			expect(results.plugin.data.length > 0).to.be.true;
 			expect(results.plugin.error).to.be.undefined;
 			done();
@@ -56,7 +39,7 @@ describe('exports', function () {
 	});
 
 	it('returns an error if an invalid collection is specified', function (done) {
-		searchHelper('medicine', ['fhqwhgads'], function (results) {
+		amalgamatic.search({searchTerm: 'medicine', collections: ['fhqwhgads']}, function (results) {
 			expect(results.fhqwhgads.data).to.be.undefined;
 			expect(results.fhqwhgads.error).to.equal('Collection "fhqwhgads" does not exist');
 			done();
@@ -64,7 +47,7 @@ describe('exports', function () {
 	});
 
 	it('returns multiple collections if specified', function (done) {
-		searchHelper('medicine', ['plugin', 'fhqwhgads'], function (results) {
+		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin', 'fhqwhgads']}, function (results) {
 			expect(results.plugin.data).to.be.ok;
 			expect(results.fhqwhgads.error).to.be.ok;
 			done();
@@ -72,16 +55,24 @@ describe('exports', function () {
 	});
 
 	it('returns all collections if no collection specified', function (done) {
-		searchHelper('medicine', null, function (results) {
+		amalgamatic.search({searchTerm: 'medicine'}, function (results) {
 			expect(results.plugin.data).to.be.ok;
 			done();
 		});
 	});
 
 	it('returns errors returned by the plugin', function (done) {
-		searchHelper('error', ['plugin'], function (results) {
+		amalgamatic.search({searchTerm: 'error', collections: ['plugin']}, function (results) {
 			expect(results.plugin.data).to.be.undefined;
 			expect(results.plugin.error).to.equal('There was an error! Oh noes!');
+			done();
+		});
+	});
+
+	it('returns limits results to sepcified maxResults', function (done) {
+		amalgamatic.search({searchTerm: 'medicine', maxResults: 1}, function (results) {
+			expect(results.plugin.error).to.be.undeinfed;
+			expect(results.plugin.data.length).to.equal(1);
 			done();
 		});
 	});
