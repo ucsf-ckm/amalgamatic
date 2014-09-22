@@ -33,6 +33,6 @@ exports.search = function (query, callback) {
   async.each(requestedCollections, iterator, wrappedCallback);
 };
 
-exports.add = function (name, collector) {
-  collections[name] = collector;
+exports.add = function (name, plugin) {
+  collections[name] = plugin;
 };
