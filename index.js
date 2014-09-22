@@ -6,22 +6,22 @@ exports.search = function (query, callback) {
   'use strict';
 
   var requestedCollections;
-  if (! query.c || ! query.c instanceof Array) {
+  if (! query.collections || ! query.collections instanceof Array) {
     requestedCollections = Object.keys(collections);
   } else {
-    requestedCollections = query.c;
+    requestedCollections = query.collections;
   }
 
   var results = {};
 
-  var iterator = function (c, done) {
-    if (c in collections) {
-      collections[c].search(query.q, function (value) {
-        results[c] = value;
+  var iterator = function (collection, done) {
+    if (collection in collections) {
+      collections[collection].search(query.searchTerm, function (value) {
+        results[collection] = value;
         done();
       });
     } else {
-      results[c] = {error: 'Collection "' + c + '" does not exist'};
+      results[collection] = {error: 'Collection "' + collection + '" does not exist'};
       done();
     }
   };

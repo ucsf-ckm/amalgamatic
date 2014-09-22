@@ -31,10 +31,10 @@ describe('exports', function () {
 		emitter.emit('end', value);
 	};
 
-	var searchHelper = function (q, c, callback) {
+	var searchHelper = function (searchTerm, collections, callback) {
 		var query = {
-			q: q,
-			c: c
+			searchTerm: searchTerm,
+			collections: collections
 		};
 
 		emitter.once('end', callback);
