@@ -4,8 +4,10 @@ var amalgamatic = require('../index.js');
 
 var pluginTestDouble = {
 	search: function (query, callback) {
-		if (query === 'error') {
+		if (query.searchTerm === 'error') {
 			callback({error: 'There was an error! Oh noes!'});
+		} else if (query.searchTerm === 'options') {
+			callback(query);
 		} else {
 			callback({data: [
 				{name: 'Result 1', url: 'http://example.com/1'},
@@ -28,6 +30,14 @@ describe('exports', function () {
 	it('should have a search property', function (done) {
 		expect(typeof amalgamatic.search).to.equal('function');
 		done();
+	});
+
+	it('should pass the entire query object to the plugin', function (done) {
+		var query = {searchTerm: 'options', fhqwhgads: 'fhqwhgads'};
+		amalgamatic.search(query, function (results) {
+			expect(results).to.deep.equal({plugin: query});
+			done();
+		});
 	});
 
 	it('returns only specified collection', function (done) {
