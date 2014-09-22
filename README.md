@@ -38,7 +38,7 @@ Add (register) a plugin for a collection.
  
 Execute a search query.
 * `query`: An object optionally containing the following properties
-    * `q`: String containing the actual query. In other words, the search terms.
-    * `c`: Array of strings representing the plugins you wish to search. Default is to use all registered plugins.
+    * `searchTerm`: String containing the search term(s).
+    * `collections`: Array of strings representing the plugins you wish to search. Default is to use all registered plugins.
 * `callback`: A function to execute after all plugins have returned results. It is called with one parameter.
     * `results`: An object containing all the results from the plugins.
