@@ -76,5 +76,19 @@ describe('exports', function () {
 			done();
 		});
 	});
+
+	it('runs pluginCallback for each plugin before runnning its own callback', function (done) {
+		var pluginCallbackRan = false;
+
+		var pluginCallback = function (value) {
+			expect(value.data.length).to.equal(2);
+			pluginCallbackRan = true;
+		};
+
+		amalgamatic.search({searchTerm: 'medicine', pluginCallback: pluginCallback}, function () {
+			expect(pluginCallbackRan).to.be.ok;
+			done();
+		});
+	});
 });
 
