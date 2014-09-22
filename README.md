@@ -21,7 +21,7 @@ amalgamatic.add('sfx', sfx);
 amalgamatic.add('pubmed', pubmed);
 
 // Do a search!
-amalgamatic.search('medicine', function (results) {
+amalgamatic.search({searchTerm: 'medicine'}, function (results) {
 	console.dir(results);
 });
 ````
