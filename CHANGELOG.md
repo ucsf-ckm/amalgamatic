@@ -1,4 +1,13 @@
 # 2014-09-22
+2 commits against 1 issues, over an hour [`c14b146`](https://github.com/ucsf-ckm/amalgamatic/commit/c14b146)⎆[`ea42929`](https://github.com/ucsf-ckm/amalgamatic/commit/ea42929)
+
+## [**4.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=4&state=closed)
+- [**#36**](https://github.com/ucsf-ckm/amalgamatic/issues/36) Fix broken option passing
+
+---
+
+
+# 2014-09-22
 36 commits against 25 issues, over 6 days [`48f8c3d`](https://github.com/ucsf-ckm/amalgamatic/commit/48f8c3d)⎆[`e966def`](https://github.com/ucsf-ckm/amalgamatic/commit/e966def)
 
 ## [**3.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=3&state=closed)
