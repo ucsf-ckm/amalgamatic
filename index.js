@@ -12,11 +12,16 @@ exports.search = function (query, callback) {
     requestedCollections = query.collections;
   }
 
+  var maxResults = query.maxResults;
+
   var results = {};
 
   var iterator = function (collection, done) {
     if (collection in collections) {
       collections[collection].search(query.searchTerm, function (value) {
+        if (maxResults && value.data instanceof Array) {
+          value.data = value.data.slice(0, maxResults);
+        }
         results[collection] = value;
         done();
       });

@@ -38,7 +38,8 @@ Add (register) a plugin for a collection.
  
 Execute a search query.
 * `query`: An object optionally containing the following properties
-    * `searchTerm`: String containing the search term(s).
+    * `searchTerm`: String containing the search term(s). Default is empty string which returns no results.
     * `collections`: Array of strings representing the plugins you wish to search. Default is to use all registered plugins.
+    * `maxResults`: Integer representing the maximum number of results to return from each plugin. Use 0 or a negative number (or omit the property altogether) to return the default number of results from each plugin.
 * `callback`: A function to execute after all plugins have returned results. It is called with one parameter.
     * `results`: An object containing all the results from the plugins.
