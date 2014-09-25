@@ -5,11 +5,11 @@ var amalgamatic = require('../index.js');
 var pluginTestDouble = {
 	search: function (query, callback) {
 		if (query.searchTerm === 'error') {
-			callback({error: 'There was an error! Oh noes!'});
+			callback(new Error('There was an error! Oh noes!'));
 		} else if (query.searchTerm === 'options') {
-			callback(query);
+			callback(null, query);
 		} else {
-			callback({data: [
+			callback(null, {data: [
 				{name: 'Result 1', url: 'http://example.com/1'},
 				{name: 'Result 2', url: 'http://example.com/2'}
 			]});
@@ -34,54 +34,64 @@ describe('exports', function () {
 
 	it('should pass the entire query object to the plugin', function (done) {
 		var query = {searchTerm: 'options', fhqwhgads: 'fhqwhgads'};
-		amalgamatic.search(query, function (results) {
+		amalgamatic.search(query, function (err, results) {
 			expect(results).to.deep.equal({plugin: query});
 			done();
 		});
 	});
 
 	it('returns only specified collection', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin']}, function (results) {
+		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin']}, function (err, results) {
 			expect(results.plugin.data.length > 0).to.be.true;
-			expect(results.plugin.error).to.be.undefined;
+			expect(err).to.be.not.ok;
 			done();
 		});
 	});
 
 	it('returns an error if an invalid collection is specified', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', collections: ['fhqwhgads']}, function (results) {
-			expect(results.fhqwhgads.data).to.be.undefined;
-			expect(results.fhqwhgads.error).to.equal('Collection "fhqwhgads" does not exist');
+		amalgamatic.search({searchTerm: 'medicine', collections: ['fhqwhgads']}, function (err, results) {
+			expect(results).to.be.not.ok;
+			expect(err).to.deep.equal(new Error('Collection "fhqwhgads" does not exist'));
 			done();
 		});
 	});
 
 	it('returns multiple collections if specified', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin', 'fhqwhgads']}, function (results) {
-			expect(results.plugin.data).to.be.ok;
-			expect(results.fhqwhgads.error).to.be.ok;
+		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin', 'fhqwhgads']}, function (err, results) {
+			expect(results).to.be.not.ok;
+			expect(err).to.be.ok;
 			done();
 		});
 	});
 
 	it('returns all collections if no collection specified', function (done) {
-		amalgamatic.search({searchTerm: 'medicine'}, function (results) {
+		amalgamatic.search({searchTerm: 'medicine'}, function (err, results) {
 			expect(results.plugin.data).to.be.ok;
 			done();
 		});
 	});
 
-	it('returns errors returned by the plugin', function (done) {
-		amalgamatic.search({searchTerm: 'error', collections: ['plugin']}, function (results) {
-			expect(results.plugin.data).to.be.undefined;
-			expect(results.plugin.error).to.equal('There was an error! Oh noes!');
+	it('provides the main callback with errors that are returned by the plugin', function (done) {
+		amalgamatic.search({searchTerm: 'error', collections: ['plugin']}, function (err, results) {
+			expect(results).to.be.not.ok;
+			expect(err).to.deep.equal(new Error('There was an error! Oh noes!'));
 			done();
 		});
 	});
 
+	it('provides the plugin callbacks with errors that are returned by the plugin', function (done) {
+		var pluginCallback = function (err, value) {
+			expect(err).to.be.ok;
+			expect(value).to.be.not.ok;
+			done();
+		};
+
+		amalgamatic.search({searchTerm: 'error', pluginCallback: pluginCallback});
+	});
+
 	it('returns limits results to sepcified maxResults', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', maxResults: 1}, function (results) {
-			expect(results.plugin.error).to.be.undeinfed;
+		amalgamatic.search({searchTerm: 'medicine', maxResults: 1}, function (err, results) {
+			expect(err).to.be.null;
 			expect(results.plugin.data.length).to.equal(1);
 			done();
 		});
@@ -90,7 +100,7 @@ describe('exports', function () {
 	it('runs pluginCallback for each plugin before runnning its own callback', function (done) {
 		var pluginCallbackRan = false;
 
-		var pluginCallback = function (value) {
+		var pluginCallback = function (err, value) {
 			expect(value.data.length).to.equal(2);
 			pluginCallbackRan = true;
 		};
@@ -102,7 +112,7 @@ describe('exports', function () {
 	});
 
 	it('should include the plugin name in the value for pluginCallback', function (done) {
-		var pluginCallback = function (value) {
+		var pluginCallback = function (err, value) {
 			expect(value.name).to.equal('plugin');
 			done();
 		};
