@@ -20,24 +20,26 @@ exports.search = function (query, callback) {
 
   var iterator = function (collection, done) {
     if (collection in collections) {
-      collections[collection].search(query, function (value) {
+      collections[collection].search(query, function (err, value) {
         if (maxResults && value.data instanceof Array) {
           value.data = value.data.slice(0, maxResults);
         }
 
         if (pluginCallback) {
-          var result = {name: collection};
-          result.data = value.data;
-          result.error = value.error;
-          pluginCallback(result);
+          if (err) {
+            pluginCallback(err);
+          } else {
+            var result = {name: collection};
+            result.data = value.data;
+            pluginCallback(null, result);
+          }
         }
 
         results[collection] = value;
-        done();
+        done(err);
       });
     } else {
-      results[collection] = {error: 'Collection "' + collection + '" does not exist'};
-      done();
+      done(new Error('Collection "' + collection + '" does not exist'));
     }
   };
 
@@ -45,8 +47,12 @@ exports.search = function (query, callback) {
     callback = function () {};
   }
   
-  var wrappedCallback = function () {
-    callback(results);
+  var wrappedCallback = function (err) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, results);
+    }
   };
 
   async.each(requestedCollections, iterator, wrappedCallback);
