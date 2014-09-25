@@ -100,5 +100,10 @@ describe('exports', function () {
 			done();
 		});
 	});
+
+	it('should run with a null callback as the user can still send a plugin-level callback', function (done) {
+		amalgamatic.search({searchTerm: 'medicine'});
+		done();
+	});
 });
 

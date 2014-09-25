@@ -38,6 +38,10 @@ exports.search = function (query, callback) {
     }
   };
 
+  if (typeof callback !== 'function') {
+    callback = function () {};
+  }
+  
   var wrappedCallback = function () {
     callback(results);
   };
