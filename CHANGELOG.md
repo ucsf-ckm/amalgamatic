@@ -1,4 +1,24 @@
 # 2014-09-25
+13 commits against 9 issues, over 6 hours [`0a9e574`](https://github.com/ucsf-ckm/amalgamatic/commit/0a9e574)⎆[`a53f149`](https://github.com/ucsf-ckm/amalgamatic/commit/a53f149)
+
+## [**5.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=6&state=closed)
+- [**#48**](https://github.com/ucsf-ckm/amalgamatic/issues/48) update README for proper callback documentation
+- [**#47**](https://github.com/ucsf-ckm/amalgamatic/issues/47) add Travis badge to README
+- [**#45**](https://github.com/ucsf-ckm/amalgamatic/issues/45) Travis-CI
+- [**#35**](https://github.com/ucsf-ckm/amalgamatic/issues/35) Scoping on callbacks
+- [**#38**](https://github.com/ucsf-ckm/amalgamatic/issues/38) Callback first parameter is error
+- [**#42**](https://github.com/ucsf-ckm/amalgamatic/issues/42) pluginCallback should receive the collection name
+
+
+## Issues
+- [**#46**](https://github.com/ucsf-ckm/amalgamatic/issues/46) add .travis.yml for #45
+- [**#44**](https://github.com/ucsf-ckm/amalgamatic/issues/44) callback-signature, fix for #38
+- [**#43**](https://github.com/ucsf-ckm/amalgamatic/issues/43) include plugin name in pluginCallback argument
+
+---
+
+
+# 2014-09-25
 5 commits against 3 issues, over 3 days [`17ee010`](https://github.com/ucsf-ckm/amalgamatic/commit/17ee010)⎆[`81c6b7a`](https://github.com/ucsf-ckm/amalgamatic/commit/81c6b7a)
 
 ## [**4.0.1**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=5&state=closed)
