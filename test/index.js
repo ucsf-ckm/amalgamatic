@@ -124,5 +124,13 @@ describe('exports', function () {
 		amalgamatic.search({searchTerm: 'medicine'});
 		done();
 	});
+
+	it('should not give callbacks access to local vars', function (done) {
+		amalgamatic.search({searchTerm: 'medicine'}, function () {
+			var requestedCollections = requestedCollections || 'fhqwhgads';
+			expect(requestedCollections).to.equal('fhqwhgads');
+			done();
+		});
+	});
 });
 
