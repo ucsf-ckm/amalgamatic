@@ -26,7 +26,10 @@ exports.search = function (query, callback) {
         }
 
         if (pluginCallback) {
-          pluginCallback(value);
+          var result = {name: collection};
+          result.data = value.data;
+          result.error = value.error;
+          pluginCallback(result);
         }
 
         results[collection] = value;
