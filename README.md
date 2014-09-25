@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ucsf-ckm/amalgamatic.svg?branch=master)](https://travis-ci.org/ucsf-ckm/amalgamatic)
+
 amalgamatic
 ===========
 
