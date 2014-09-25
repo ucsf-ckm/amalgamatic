@@ -1,3 +1,17 @@
+# 2014-09-25
+5 commits against 3 issues, over 3 days [`17ee010`](https://github.com/ucsf-ckm/amalgamatic/commit/17ee010)⎆[`81c6b7a`](https://github.com/ucsf-ckm/amalgamatic/commit/81c6b7a)
+
+## [**4.0.1**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=5&state=closed)
+- [**#40**](https://github.com/ucsf-ckm/amalgamatic/issues/40) Callback should not be required
+- [**#37**](https://github.com/ucsf-ckm/amalgamatic/issues/37) Update usage examples in README
+
+
+## Issues
+- [**#41**](https://github.com/ucsf-ckm/amalgamatic/issues/41) tolerate null callback, fixes #40
+
+---
+
+
 # 2014-09-22
 2 commits against 1 issues, over an hour [`c14b146`](https://github.com/ucsf-ckm/amalgamatic/commit/c14b146)⎆[`ea42929`](https://github.com/ucsf-ckm/amalgamatic/commit/ea42929)
 
