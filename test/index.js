@@ -101,6 +101,15 @@ describe('exports', function () {
 		});
 	});
 
+	it('should include the plugin name in the value for pluginCallback', function (done) {
+		var pluginCallback = function (value) {
+			expect(value.name).to.equal('plugin');
+			done();
+		};
+
+		amalgamatic.search({searchTerm: 'medicine', pluginCallback: pluginCallback});
+	});
+
 	it('should run with a null callback as the user can still send a plugin-level callback', function (done) {
 		amalgamatic.search({searchTerm: 'medicine'});
 		done();
