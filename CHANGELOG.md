@@ -1,4 +1,7 @@
 
+## [**6.0.0**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=8&state=closed)
+- [**#53**](https://github.com/ucsf-ckm/amalgamatic/issues/53) sync vs. async should return data formatted identically (just sync should be an array)
+
 ## [**5.0.1**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=7&state=closed)
 - [**#51**](https://github.com/ucsf-ckm/amalgamatic/issues/51) TypeError if error thrown with maxResults set
 - [**#49**](https://github.com/ucsf-ckm/amalgamatic/issues/49) Add CONTRIBUTING.md
