@@ -21,7 +21,7 @@ exports.search = function (query, callback) {
   var iterator = function (collection, done) {
     if (collection in collections) {
       collections[collection].search(query, function (err, value) {
-        if (maxResults && value.data instanceof Array) {
+        if (maxResults && value && value.data instanceof Array) {
           value.data = value.data.slice(0, maxResults);
         }
 
