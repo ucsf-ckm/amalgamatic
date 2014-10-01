@@ -16,7 +16,7 @@ exports.search = function (query, callback) {
 
   var pluginCallback = query.pluginCallback;
 
-  var results = {};
+  var results = [];
 
   var iterator = function (collection, done) {
     if (collection in collections) {
@@ -25,17 +25,19 @@ exports.search = function (query, callback) {
           value.data = value.data.slice(0, maxResults);
         }
 
+        if (value) {
+          value.name = collection;
+          results.push(value);
+        }
+
         if (pluginCallback) {
           if (err) {
             pluginCallback(err);
           } else {
-            var result = {name: collection};
-            result.data = value.data;
-            pluginCallback(null, result);
+            pluginCallback(null, value);
           }
         }
 
-        results[collection] = value;
         done(err);
       });
     } else {
