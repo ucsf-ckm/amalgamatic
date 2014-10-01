@@ -97,6 +97,16 @@ describe('exports', function () {
 		});
 	});
 
+	it('does not cause a TypeError if maxResults set and plugin returns an error', function (done) {
+		var pluginCallback = function (err, value) {
+			expect(err).to.be.ok;
+			expect(value).to.be.not.ok;
+			done();
+		};
+
+		amalgamatic.search({searchTerm: 'error', pluginCallback: pluginCallback, maxResults: 5});
+	});
+
 	it('runs pluginCallback for each plugin before runnning its own callback', function (done) {
 		var pluginCallbackRan = false;
 
