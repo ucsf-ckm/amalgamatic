@@ -34,15 +34,18 @@ describe('exports', function () {
 
 	it('should pass the entire query object to the plugin', function (done) {
 		var query = {searchTerm: 'options', fhqwhgads: 'fhqwhgads'};
+		var expectedResult = query;
+		expectedResult.name = 'plugin';
 		amalgamatic.search(query, function (err, results) {
-			expect(results).to.deep.equal({plugin: query});
+			expect(results).to.deep.equal([expectedResult]);
 			done();
 		});
 	});
 
 	it('returns only specified collection', function (done) {
 		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin']}, function (err, results) {
-			expect(results.plugin.data.length > 0).to.be.true;
+			expect(results[0].name).to.equal('plugin');
+			expect(results[0].data.length > 0).to.be.true;
 			expect(err).to.be.not.ok;
 			done();
 		});
@@ -66,7 +69,8 @@ describe('exports', function () {
 
 	it('returns all collections if no collection specified', function (done) {
 		amalgamatic.search({searchTerm: 'medicine'}, function (err, results) {
-			expect(results.plugin.data).to.be.ok;
+			expect(results[0].name).to.equal('plugin');
+			expect(results[0].data).to.be.ok;
 			done();
 		});
 	});
@@ -89,10 +93,11 @@ describe('exports', function () {
 		amalgamatic.search({searchTerm: 'error', pluginCallback: pluginCallback});
 	});
 
-	it('returns limits results to sepcified maxResults', function (done) {
+	it('limits results to sepcified maxResults', function (done) {
 		amalgamatic.search({searchTerm: 'medicine', maxResults: 1}, function (err, results) {
 			expect(err).to.be.null;
-			expect(results.plugin.data.length).to.equal(1);
+			expect(results[0].name).to.equal('plugin');
+			expect(results[0].data.length).to.equal(1);
 			done();
 		});
 	});
@@ -139,6 +144,18 @@ describe('exports', function () {
 		amalgamatic.search({searchTerm: 'medicine'}, function () {
 			var requestedCollections = requestedCollections || 'fhqwhgads';
 			expect(requestedCollections).to.equal('fhqwhgads');
+			done();
+		});
+	});
+
+	it('should return identically formatted data whether using main callback or plugin callback', function (done) {
+		var pluginResults = [];
+		var pluginCallback = function (err, result) {
+			pluginResults.push(result);
+		};
+
+		amalgamatic.search({searchTerm: 'medicine', pluginCallback: pluginCallback}, function (err, results) {
+			expect(results).to.deep.equal(pluginResults);
 			done();
 		});
 	});
