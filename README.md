@@ -50,6 +50,8 @@ Execute a search query.
 		* `error`: An Error object or `null` if no error occurred.
     * `results`: An object containing all the results from all the plugins.
 
-## Writing plugins
+## Plugins
 
-See [How To Write an Amalgamatic Plugin](https://github.com/ucsf-ckm/amalgamatic/wiki/How-to-write-an-amalgamatic-plugin) on the wiki.
+* [A list of plugin modules published via npm](https://www.npmjs.org/browse/keyword/amalgamatic-plugin)
+
+* [How To Write an Amalgamatic Plugin](https://github.com/ucsf-ckm/amalgamatic/wiki/How-to-write-an-amalgamatic-plugin)
