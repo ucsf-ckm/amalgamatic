@@ -49,3 +49,7 @@ Execute a search query.
 * `callback`: A function to execute after all plugins have returned results. It is called with two parameters.
 		* `error`: An Error object or `null` if no error occurred.
     * `results`: An object containing all the results from all the plugins.
+
+## Writing plugins
+
+See [How To Write an Amalgamatic Plugin](https://github.com/ucsf-ckm/amalgamatic/wiki/How-to-write-an-amalgamatic-plugin) on the wiki.
