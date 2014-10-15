@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/ucsf-ckm/amalgamatic.svg?branch=master)](https://travis-ci.org/ucsf-ckm/amalgamatic)
 
-amalgamatic
+Amalgamatic
 ===========
 
 Amalgamatic is a pluggable metasearch tool. It let's you choose a series of 
@@ -11,14 +11,14 @@ Search all the things!
 ## Quickstart
 
 ````
-// Load amalgamatic
+// Load Amalgamatic
 var amalgamatic = require('amalgamatic');
 
 // Load some plugins to search SFX and PubMed.
 var sfx = require('amalgamatic-sfx');
 var pubmed = require('amalgamatic-pubmed');
 
-// Add the plugins to amalgamatic.
+// Add the plugins to Amalgamatic.
 amalgamatic.add('sfx', sfx);
 amalgamatic.add('pubmed', pubmed);
 
@@ -55,3 +55,9 @@ Execute a search query.
 * [A list of plugin modules published via npm](https://www.npmjs.org/browse/keyword/amalgamatic-plugin)
 
 * [How To Write an Amalgamatic Plugin](https://github.com/ucsf-ckm/amalgamatic/wiki/How-to-write-an-amalgamatic-plugin)
+
+## Browserify
+
+If you want to use Amalgamatic in the browser, most plugins will work fine with [Browserify](http://browserify.org/) but they may need to be run through a CORS proxy. Fortunately, we've set up a demo.
+
+* [Amalgamatic + Browserify Demo](http://trott.github.io/demo-amalgamatic-browserify/)
