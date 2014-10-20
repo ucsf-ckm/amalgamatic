@@ -30,10 +30,16 @@ var pubmed = require('amalgamatic-pubmed');
 amalgamatic.add('sfx', sfx);
 amalgamatic.add('pubmed', pubmed);
 
+var callback = function (err, results) {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log(results);
+	}
+};
+
 // Do a search!
-amalgamatic.search({searchTerm: 'medicine'}, function (results) {
-	console.dir(results);
-});
+amalgamatic.search({searchTerm: 'medicine'}, callback);
 ````
 
 ## API
