@@ -3,7 +3,7 @@
 Amalgamatic
 ===========
 
-Amalgamatic is a pluggable metasearch tool. It let's you choose a series of 
+Amalgamatic is a pluggable metasearch/federated search tool. It let's you choose a series of 
 sources to search and then search them.
 
 Search all the things!
