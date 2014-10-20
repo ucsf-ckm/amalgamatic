@@ -32,9 +32,12 @@ amalgamatic.add('pubmed', pubmed);
 
 var callback = function (err, results) {
 	if (err) {
-		console.log(err);
+		console.dir(err);
 	} else {
-		console.log(results);
+		results.forEach( function (result) {
+			console.log('\nCollection name: ' + result.name);
+			console.dir(result.data);
+		});
 	}
 };
 
