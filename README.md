@@ -8,6 +8,14 @@ sources to search and then search them.
 
 Search all the things!
 
+## Installation
+
+Install Amalgamatic and plugins with `npm`. For example:
+
+````
+# npm install --save amalgamatic amalgamatic-sfx amalgamatic-pubmed
+````
+
 ## Quickstart
 
 ````
