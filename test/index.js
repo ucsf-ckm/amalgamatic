@@ -19,10 +19,12 @@ var pluginTestDouble = {
 
 amalgamatic.add('plugin', pluginTestDouble);
 
+var Code = require('code'); 
+
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 
-var expect = Lab.expect;
+var expect = Code.expect;
 var describe = lab.experiment;
 var it = lab.test;
 
