@@ -1,4 +1,8 @@
 
+## [**6.0.3**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=11&state=closed)
+- [**#59**](https://github.com/ucsf-ckm/amalgamatic/issues/59) Add io.js to Travis
+- [**#60**](https://github.com/ucsf-ckm/amalgamatic/issues/60) Do not release Zalgo
+
 ## [**6.0.2**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=10&state=closed)
 - [**#57**](https://github.com/ucsf-ckm/amalgamatic/issues/57) browserify demo using http://www.corsproxy.com/
 
