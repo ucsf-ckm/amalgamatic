@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/ucsf-ckm/amalgamatic.git"
   },
-  "version": "6.0.2",
+  "version": "6.0.3",
   "dependencies": {
     "async": "^0.9.0",
     "cheerio": "^0.17.0"
