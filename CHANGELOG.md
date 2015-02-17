@@ -1,4 +1,8 @@
 
+## [**6.0.4**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=12&state=closed)
+- [**#64**](https://github.com/ucsf-ckm/amalgamatic/issues/64) Call main callback with data and error, not one or the other
+- [**#63**](https://github.com/ucsf-ckm/amalgamatic/issues/63) plugin callbacks may be executed after main callback if one plugin callback returns an error
+
 ## [**6.0.3**](https://github.com/ucsf-ckm/amalgamatic/issues?milestone=11&state=closed)
 - [**#59**](https://github.com/ucsf-ckm/amalgamatic/issues/59) Add io.js to Travis
 - [**#60**](https://github.com/ucsf-ckm/amalgamatic/issues/60) Do not release Zalgo
