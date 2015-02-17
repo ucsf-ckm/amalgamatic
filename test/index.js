@@ -1,24 +1,5 @@
 /*jshint expr: true*/
 
-var amalgamatic = require('../index.js');
-
-var pluginTestDouble = {
-	search: function (query, callback) {
-		if (query.searchTerm === 'error') {
-			callback(new Error('There was an error! Oh noes!'));
-		} else if (query.searchTerm === 'options') {
-			callback(null, query);
-		} else {
-			callback(null, {data: [
-				{name: 'Result 1', url: 'http://example.com/1'},
-				{name: 'Result 2', url: 'http://example.com/2'}
-			]});
-		}
-	}
-};
-
-amalgamatic.add('plugin', pluginTestDouble);
-
 var Code = require('code'); 
 
 var Lab = require('lab');
@@ -27,8 +8,33 @@ var lab = exports.lab = Lab.script();
 var expect = Code.expect;
 var describe = lab.experiment;
 var it = lab.test;
+var beforeEach = lab.beforeEach;
 
 describe('exports', function () {
+	var amalgamatic;
+
+	beforeEach(function (done) {
+		amalgamatic = require('../index.js');
+
+		var pluginTestDouble = {
+			search: function (query, callback) {
+				if (query.searchTerm === 'error') {
+					callback(new Error('There was an error! Oh noes!'));
+				} else if (query.searchTerm === 'options') {
+					callback(null, query);
+				} else {
+					callback(null, {data: [
+						{name: 'Result 1', url: 'http://example.com/1'},
+						{name: 'Result 2', url: 'http://example.com/2'}
+					]});
+				}
+			}
+		};
+
+		amalgamatic.add('plugin', pluginTestDouble);
+		done();
+	});
+
 	it('should have a search property', function (done) {
 		expect(typeof amalgamatic.search).to.equal('function');
 		done();
@@ -161,5 +167,15 @@ describe('exports', function () {
 			done();
 		});
 	});
+
+	// it('should execute callbacks for all plugins even if one had an error', function (done) {
+	// 	var runCount = 0;
+
+	// 	var pluginCallback = function () {
+	// 		runCount = runCount + 1;
+	// 	}
+
+
+	// });
 });
 
