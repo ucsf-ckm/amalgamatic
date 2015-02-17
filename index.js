@@ -5,6 +5,8 @@ var collections = {};
 exports.search = function (query, callback) {
   'use strict';
 
+  var lastError;
+
   var requestedCollections;
   if (! query.collections || ! query.collections instanceof Array) {
     requestedCollections = Object.keys(collections);
@@ -23,7 +25,8 @@ exports.search = function (query, callback) {
 
     if (! myCollection) {
       return process.nextTick(function () {
-        done(new Error('Collection "' + collection + '" does not exist'));
+        lastError = new Error('Collection "' + collection + '" does not exist');
+        done();
       });
     }
 
@@ -37,6 +40,10 @@ exports.search = function (query, callback) {
         results.push(value);
       }
 
+      if (err) {
+        lastError = err;
+      }
+
       if (pluginCallback) {
         if (err) {
           pluginCallback(err);
@@ -45,7 +52,7 @@ exports.search = function (query, callback) {
         }
       }
 
-      done(err);
+      done();
     });
   };
 
@@ -53,12 +60,8 @@ exports.search = function (query, callback) {
     callback = function () {};
   }
   
-  var wrappedCallback = function (err) {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, results);
-    }
+  var wrappedCallback = function () {
+    callback(lastError, results);
   };
 
   async.each(requestedCollections, iterator, wrappedCallback);

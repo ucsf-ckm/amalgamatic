@@ -1,24 +1,5 @@
 /*jshint expr: true*/
 
-var amalgamatic = require('../index.js');
-
-var pluginTestDouble = {
-	search: function (query, callback) {
-		if (query.searchTerm === 'error') {
-			callback(new Error('There was an error! Oh noes!'));
-		} else if (query.searchTerm === 'options') {
-			callback(null, query);
-		} else {
-			callback(null, {data: [
-				{name: 'Result 1', url: 'http://example.com/1'},
-				{name: 'Result 2', url: 'http://example.com/2'}
-			]});
-		}
-	}
-};
-
-amalgamatic.add('plugin', pluginTestDouble);
-
 var Code = require('code'); 
 
 var Lab = require('lab');
@@ -27,8 +8,33 @@ var lab = exports.lab = Lab.script();
 var expect = Code.expect;
 var describe = lab.experiment;
 var it = lab.test;
+var beforeEach = lab.beforeEach;
 
 describe('exports', function () {
+	var amalgamatic;
+
+	beforeEach(function (done) {
+		amalgamatic = require('../index.js');
+
+		var pluginTestDouble = {
+			search: function (query, callback) {
+				if (query.searchTerm === 'error') {
+					callback(new Error('There was an error! Oh noes!'));
+				} else if (query.searchTerm === 'options') {
+					callback(null, query);
+				} else {
+					callback(null, {data: [
+						{name: 'Result 1', url: 'http://example.com/1'},
+						{name: 'Result 2', url: 'http://example.com/2'}
+					]});
+				}
+			}
+		};
+
+		amalgamatic.add('plugin', pluginTestDouble);
+		done();
+	});
+
 	it('should have a search property', function (done) {
 		expect(typeof amalgamatic.search).to.equal('function');
 		done();
@@ -57,14 +63,6 @@ describe('exports', function () {
 		amalgamatic.search({searchTerm: 'medicine', collections: ['fhqwhgads']}, function (err, results) {
 			expect(results).to.be.not.ok;
 			expect(err).to.deep.equal(new Error('Collection "fhqwhgads" does not exist'));
-			done();
-		});
-	});
-
-	it('returns multiple collections if specified', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin', 'fhqwhgads']}, function (err, results) {
-			expect(results).to.be.not.ok;
-			expect(err).to.be.ok;
 			done();
 		});
 	});
@@ -158,6 +156,43 @@ describe('exports', function () {
 
 		amalgamatic.search({searchTerm: 'medicine', pluginCallback: pluginCallback}, function (err, results) {
 			expect(results).to.deep.equal(pluginResults);
+			done();
+		});
+	});
+
+	it('should execute callbacks for all plugins even if one had an error', function (done) {
+		var runCount = 0;
+
+		var pluginCallback = function () {
+			runCount = runCount + 1;
+		};
+
+		var anotherPlugin = {
+			search: function (query, callback) {
+				setTimeout(callback, 100);
+			}
+		};
+
+		amalgamatic.add('anotherPlugin', anotherPlugin);
+
+		amalgamatic.search({searchTerm: 'error', pluginCallback: pluginCallback}, function () {
+			expect(runCount).to.equal(2);
+			done();
+		});
+	});
+
+	it('should execute main callback with error and data', function (done) {
+		var anotherPlugin = {
+			search: function (query, callback) {
+				callback(null, {data: [{name: 'fhqwhgads', url: 'http://example.com/1'}]});
+			}
+		};
+
+		amalgamatic.add('anotherPlugin', anotherPlugin);
+
+		amalgamatic.search({searchTerm: 'error'}, function (err, result) {
+			expect(err).to.deep.equal(new Error('There was an error! Oh noes!'));
+			expect(result).to.deep.equal([{data: [{name: 'fhqwhgads', url: 'http://example.com/1'}], name: 'anotherPlugin'}]);
 			done();
 		});
 	});
