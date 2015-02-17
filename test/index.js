@@ -67,14 +67,6 @@ describe('exports', function () {
 		});
 	});
 
-	it('returns multiple collections if specified', function (done) {
-		amalgamatic.search({searchTerm: 'medicine', collections: ['plugin', 'fhqwhgads']}, function (err, results) {
-			expect(results).to.be.not.ok;
-			expect(err).to.be.ok;
-			done();
-		});
-	});
-
 	it('returns all collections if no collection specified', function (done) {
 		amalgamatic.search({searchTerm: 'medicine'}, function (err, results) {
 			expect(results[0].name).to.equal('plugin');
@@ -187,7 +179,22 @@ describe('exports', function () {
 			expect(runCount).to.equal(2);
 			done();
 		});
+	});
 
+	it('should execute main callback with error and data', function (done) {
+		var anotherPlugin = {
+			search: function (query, callback) {
+				callback(null, {data: [{name: 'fhqwhgads', url: 'http://example.com/1'}]});
+			}
+		};
+
+		amalgamatic.add('anotherPlugin', anotherPlugin);
+
+		amalgamatic.search({searchTerm: 'error'}, function (err, result) {
+			expect(err).to.deep.equal(new Error('There was an error! Oh noes!'));
+			expect(result).to.deep.equal([{data: [{name: 'fhqwhgads', url: 'http://example.com/1'}], name: 'anotherPlugin'}]);
+			done();
+		});
 	});
 });
 

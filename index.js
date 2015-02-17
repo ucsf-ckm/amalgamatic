@@ -61,11 +61,7 @@ exports.search = function (query, callback) {
   }
   
   var wrappedCallback = function () {
-    if (lastError) {
-      callback(lastError);
-    } else {
-      callback(null, results);
-    }
+    callback(lastError, results);
   };
 
   async.each(requestedCollections, iterator, wrappedCallback);
