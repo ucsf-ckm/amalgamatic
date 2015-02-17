@@ -168,14 +168,26 @@ describe('exports', function () {
 		});
 	});
 
-	// it('should execute callbacks for all plugins even if one had an error', function (done) {
-	// 	var runCount = 0;
+	it('should execute callbacks for all plugins even if one had an error', function (done) {
+		var runCount = 0;
 
-	// 	var pluginCallback = function () {
-	// 		runCount = runCount + 1;
-	// 	}
+		var pluginCallback = function () {
+			runCount = runCount + 1;
+		};
 
+		var anotherPlugin = {
+			search: function (query, callback) {
+				setTimeout(callback, 100);
+			}
+		};
 
-	// });
+		amalgamatic.add('anotherPlugin', anotherPlugin);
+
+		amalgamatic.search({searchTerm: 'error', pluginCallback: pluginCallback}, function () {
+			expect(runCount).to.equal(2);
+			done();
+		});
+
+	});
 });
 
