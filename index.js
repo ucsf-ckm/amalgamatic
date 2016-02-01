@@ -8,7 +8,7 @@ exports.search = function (query, callback) {
   var lastError;
 
   var requestedCollections;
-  if (! query.collections || ! query.collections instanceof Array) {
+  if (! (query.collections && query.collections instanceof Array)) {
     requestedCollections = Object.keys(collections);
   } else {
     requestedCollections = query.collections;

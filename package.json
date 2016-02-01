@@ -13,13 +13,14 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab -t 100"
   },
-  "engines": {
-    "node": "0.10.x"
+  "engines" : {
+    "node" : ">=4.2.6"
   },
   "devDependencies": {
     "code": "^1.3.0",
     "jshint": "^2.5.5",
     "lab": "^5.2.1",
     "precommit-hook": "^1.0.7"
-  }
+  },
+  "license": "MIT"
 }
