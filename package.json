@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/ucsf-ckm/amalgamatic.git"
   },
-  "version": "6.0.4",
+  "version": "6.0.5",
   "dependencies": {
     "async": "^0.9.0",
     "cheerio": "^0.17.0"
@@ -13,8 +13,8 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab -t 100"
   },
-  "engines" : {
-    "node" : ">=4.2.6"
+  "engines": {
+    "node": ">=4.2.6"
   },
   "devDependencies": {
     "code": "^1.3.0",
